@@ -23,12 +23,12 @@ let guess = document.getElementById('input');
 
 function Create_Question(){
     const r = Math.floor(Math.random() * 5);
-    const num1 = Math.floor(Math.random() * 100);
-    const num2 = Math.floor(Math.random() * 100);
+    const num1 = Math.floor(Math.random() * 10);
+    const num2 = Math.floor(Math.random() * 10);
     let q = new vec2(num1,num2);
 
-    const num3 = Math.floor(Math.random() * 100);
-    const num4 = Math.floor(Math.random() * 100);
+    const num3 = Math.floor(Math.random() * 10);
+    const num4 = Math.floor(Math.random() * 10);
     let w = new vec2(num3,num4);
     let res = 0;
     let opper = "";
@@ -67,21 +67,26 @@ function Check_Answer(answer){
     str = answer;
     str.trim("(");
     str.trim(")");
-    const words = str.split(",");
+    const words = str.slice(1, -1).split(',');
     let nums = [];
     for (const item of words){
         nums.push(Number(item));
     }
     
-    str = guess;
-    str.trim("(");
-    str.trim(")");
-    const Gwords = str.split(",");
+    str = guess.value;
+    
+    const Gwords = str.slice(1, -1).split(',');
+    console.log(Gwords);
+    
     let Gnums = [];
     for (const item of Gwords){
         Gnums.push(Number(item));
         
     }
+    
+    
+    
+
     for (let i = 0; i< Gnums.length; i++){
         if (Gnums[i] != nums[i]){
             alert("incorect");
@@ -93,5 +98,9 @@ function Check_Answer(answer){
 }
 
 let a = Create_Question();
-guess.addEventListener('keydown', Check_Answer);
+alert(a);
+guess.addEventListener("focusout",runner);
 
+function runner(){
+    Check_Answer(a);
+}
