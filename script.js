@@ -14,10 +14,10 @@ class vec2 {
     dot(v) { return this.x * v.x + this.y * v.y; }
     length() { return Math.sqrt(this.dot(this)); }
     normalize() { const l = this.length(); return new vec2(this.x / l, this.y / l); }
-    String() {return `(${this.x}, ${this.y}`}
+    String() {return `(${this.x}, ${this.y})`}
 }
 
-let answer = document.querySelector("input").value;
+let guess = document.getElementById('input');
 
 
 
@@ -29,7 +29,7 @@ function Create_Question(){
 
     const num3 = Math.floor(Math.random() * 100);
     const num4 = Math.floor(Math.random() * 100);
-    let w = new vec2(num1,num2);
+    let w = new vec2(num3,num4);
     let res = 0;
     let opper = "";
     switch (r){
@@ -59,7 +59,39 @@ function Create_Question(){
         //     break;
     }
     document.getElementById("question").innerText = `${q.String()} ${opper} ${w.String()}`;
-    return answer;
+    return res.String();
 }
-alert(Create_Question());
+
+function Check_Answer(answer){
+    let str = "";
+    str = answer;
+    str.trim("(");
+    str.trim(")");
+    const words = str.split(",");
+    let nums = [];
+    for (const item of words){
+        nums.push(Number(item));
+    }
+    
+    str = guess;
+    str.trim("(");
+    str.trim(")");
+    const Gwords = str.split(",");
+    let Gnums = [];
+    for (const item of Gwords){
+        Gnums.push(Number(item));
+        
+    }
+    for (let i = 0; i< Gnums.length; i++){
+        if (Gnums[i] != nums[i]){
+            alert("incorect");
+            return 1;
+        }
+    }
+    alert("Correct");
+
+}
+
+let a = Create_Question();
+guess.addEventListener('keydown', Check_Answer);
 
