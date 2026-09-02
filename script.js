@@ -65,9 +65,14 @@ function Create_Question(){
 function Check_Answer(answer){
     let str = "";
     str = answer;
-    str.trim("(");
-    str.trim(")");
-    const words = str.slice(1, -1).split(',');
+    let words = "";
+    if (str[0] =="("){
+        alert(str);
+        words = str.slice(1, -1).split(',');
+    }
+    else{
+        words = str.split(',');
+    }
     let nums = [];
     for (const item of words){
         nums.push(Number(item));
@@ -75,7 +80,14 @@ function Check_Answer(answer){
     
     str = guess.value;
     
-    const Gwords = str.slice(1, -1).split(',');
+    let Gwords = "";
+    if (str[0] =="("){
+        alert(str);
+        Gwords = str.slice(1, -1).split(',');
+    }
+    else{
+        Gwords = str.split(',');
+    }
     console.log(Gwords);
     
     let Gnums = [];
